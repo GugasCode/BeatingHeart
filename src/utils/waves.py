@@ -3,14 +3,12 @@ import struct
 import numpy as np
 
 def __openWave(path):
-    print("2nd " + path)
     return wave.open(path, 'rb')
 
 def __closeWave(wav):
     wav.close()
 
 def loadWave(path):
-    print(path)
     wav = __openWave(path)
     values = {
             'nchannels' : wav.getnchannels(),
@@ -30,6 +28,7 @@ def getSamples(values):
         * values.get('samplewidth') + 1
     value = values.get('frames')
     result = np.array([], np.int32)
+    # result = np.array([], np.float32)
 
     # Mono channel
     if values.get('nchannels') == 1:
