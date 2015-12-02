@@ -13,3 +13,5 @@ def convertFR(frames, fr=2000):
 		new_frames.append(max(frames[count*ratio:count*ratio+ratio]))
 		# we'll also need to register the frame that was select
 	return new_frames
+
+	print hello.py
