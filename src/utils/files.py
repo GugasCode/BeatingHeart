@@ -11,7 +11,7 @@ def listDir(dir_path):
 def searchDir(dir_path):
     if not isdir(dir_path):
         return None
-    return [with join(dir_path, f) as p
+    return [join(dir_path, f)
             for f in listdir(dir_path) if isfile(p))]
 
 def readCSV(filename, delimit=','):
