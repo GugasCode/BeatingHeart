@@ -18,8 +18,11 @@ def norm(data):
     return data
 
 def halfRate(data):
-    aux = np.delete(data[0], -1)
-    result = aux.reshape(-1, 2).mean(axis=1)
+    if len(data) % 2 != 0:
+        aux = np.delete(data[0], -1)
+        result = aux.reshape(-1, 2).mean(axis=1)
+    else:
+        result = data[0].reshape(-1, 2).mean(axis=1)
     return np.append([result], [np.array(range(len(result)))], axis=0)
 
 import sys

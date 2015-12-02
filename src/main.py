@@ -1,4 +1,5 @@
 import sys
+<<<<<<< HEAD
 import numpy as np
 import filters as flt
 import utils.waves as wave
