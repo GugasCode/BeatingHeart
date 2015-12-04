@@ -1,10 +1,26 @@
-import sys
+<<<<<<< HEAD
+import argparse
 import numpy as np
 import pulses as pul
 import filters as flt
 import utils.waves as wave
 import utils.files as files
 import utils.charts as chart
+
+def main():
+    parser = argparse.ArgumentParser(description='Beating Heart Project')
+
+    #parser.add_argument(dest='filenames', metavar='filename',nargs='*')
+    #both input and output args optional, use cwd if not supplied or -i
+    parser.add_argument('-i',dest='input')
+    parser.add_argument('-o',dest='output')
+    parser.add_argument('-v',dest='visual')
+    parser.add_argument('-c',dest='charts')
+    parser.add_argument('-t',dest='params')
+    #files like .wav or .csv or .xls
+    parser.add_argument('-p',dest='phase')
+
+    args = parser.parse_args()
 
 def stdMovArg(data):
     data = flt.movingAverage(data, 4)
