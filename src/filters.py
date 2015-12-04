@@ -1,6 +1,22 @@
 import numpy as np
 from sklearn.preprocessing import normalize
 
+def clean(data):
+    avg = np.mean(np.absolute(data[1]))
+    data[1] = data[1]/avg
+    return data
+
+def lowPass(data, const):
+    result = np.array([data[1][0]])
+    for i in range(1,data[1].size-1):
+        aux = const * data[1][i] \
+            + ( ((1-const)/2) * result[i-1]  )\
+            + ( ((1-const)/2) * data[1][i+1] )
+        result = np.append(result, [aux])
+    result = np.append(result, [data[1][-1]])
+    data[1] = result
+    return data
+
 def convertFR(frames, fr=2000):
     """
     Function that will convert the frame rate of a given file to a smaller one.
@@ -18,26 +34,41 @@ def convertFR(frames, fr=2000):
 def movingAverage(data, step):
     """ Filters the data noise using Moving Averague algorithm """
     step = int(step)
-    size = len(data[0]) - step
+    size = len(data[1]) - step
     for i in range(size):
         aux = 0
         for l in range(step):
-            aux += data[0][i+l]
-        data[0][i] = aux / step
+            aux += data[1][i+l]
+        data[1][i] = aux / step
     return data
 
 def norm(data):
     data = data.astype(np.float32)
-    data[0] = data[0]/(np.absolute(data[0])).max()
+    data[1] = data[1]/(np.absolute(data[1])).max()
     return data
 
 def halfRate(data):
-    if len(data) % 2 != 0:
-        aux = np.delete(data[0], -1)
+    if len(data[1]) % 2 != 0:
+        aux = np.delete(data[1], -1)
         result = aux.reshape(-1, 2).mean(axis=1)
     else:
-        result = data[0].reshape(-1, 2).mean(axis=1)
-    return np.append([result], [np.array(range(len(result)))], axis=0)
+        result = data[1].reshape(-1, 2).mean(axis=1)
+    return np.append([np.array(range(len(result)))], [result], axis=0)
+
+def shannon(data):
+    n = data ** 2
+    return -n*np.log((n+0.000001))
+
+def avgStep(data, ranges, step):
+    size = data[0].size - ranges
+    for i in range(0, size, step):
+        aux = 0.0
+        for j in range(ranges):
+            aux += data[1][i+j]
+        aux /= ranges
+        for j in range(ranges):
+            data[1][i+j] = aux
+    return  data
 
 import sys
 import utils.waves as wave

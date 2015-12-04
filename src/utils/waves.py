@@ -60,7 +60,7 @@ def getSamples(values):
                 res = (res1 + res2) // 2
                 result = np.append(result, res)
 
-    return np.append([result], [np.array(range(len(result)))], axis=0)
+    return np.append([np.array(range(len(result)))], [result], axis=0)
 
 import sys
 if __name__ == "__main__":
