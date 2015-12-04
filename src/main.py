@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # chart.drawGraphJob(frames)
     frames = flt.avgStep(frames, 100, 50)
     # chart.drawGraphJob(frames)
-    frames = flt.shannon(frames)
+    # frames = flt.shannon(frames)
     chart.drawGraphJob(frames)
     # result = pul.findBeats(frames, 50)
     # for i in range(result[0].size):
