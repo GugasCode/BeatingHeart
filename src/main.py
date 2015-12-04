@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+import sys
 import argparse
 import numpy as np
 import pulses as pul
@@ -9,7 +9,6 @@ import utils.charts as chart
 
 def main():
     parser = argparse.ArgumentParser(description='Beating Heart Project')
-
     #parser.add_argument(dest='filenames', metavar='filename',nargs='*')
     #both input and output args optional, use cwd if not supplied or -i
     parser.add_argument('-i',dest='input')
@@ -34,20 +33,14 @@ def stdMovArg(data):
 if __name__ == '__main__':
     waves = wave.loadWave(sys.argv[1])
     frames = wave.getSamples(waves)
-    # frames = stdMovArg(frames)
+    chart.drawGraphJob(frames)
     frames = flt.clean(frames)
     frames = stdMovArg(frames)
     frames = flt.halfRate(frames)
     frames = flt.norm(frames)
-    frames = flt.movingAverage(frames, 16)
-    frames = flt.movingAverage(frames, 8)
-    # frames = flt.lowPass(frames, 0.5)
 
-    # chart.drawGraphJob(frames)
-    frames = flt.avgStep(frames, 100, 50)
-    # chart.drawGraphJob(frames)
-    # frames = flt.shannon(frames)
     chart.drawGraphJob(frames)
-    # result = pul.findBeats(frames, 50)
-    # for i in range(result[0].size):
-    #     print(result[0][i])
+    result = pul.findBeats(frames, 4, 4)
+    for i in range(result[0].size):
+        print(result[0][i]*2)
+    print("n beats: " + str(result[1].size))
