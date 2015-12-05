@@ -40,7 +40,9 @@ if __name__ == '__main__':
     frames = flt.norm(frames)
 
     chart.drawGraphJob(frames)
-    result = pul.findBeats(frames, 4, 4)
+    result = pul.findBeats(frames, 4, 6)
     for i in range(result[0].size):
         print(result[0][i]*2)
     print("n beats: " + str(result[1].size))
+    if pul.checkType(result):
+        print("S2 first")
