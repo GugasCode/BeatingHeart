@@ -24,7 +24,7 @@ def writeCSV(filename, data, delimit=',', mode='w'):
     with open(filename, mode) as csvfile:
         writer = csv.writer(csvfile, delimiter=delimit)
         nlines=0
-        for element in data:
-            writer.writerow(element)
-            nlines += 1
-    return nlines 
+        writer.writerow(data.astype(int))
+        nlines += 1
+        csvfile.close()
+    return nlines
