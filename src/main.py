@@ -52,6 +52,11 @@ if __name__ == '__main__':
     output = "data.xls"
     f = files.listDir(path)
     for i in f:
+        print(i)
         result = stdRun(path + i)
         insertName(output, i, mode='a')
-        files.writeCSV(output, result[0], mode='a')
+        final = result[0]*2
+        files.writeCSV(output, final, mode='a')
+        for n in range(result[0].size):
+            print(result[0][n]*2)
+        print("n beats: " + str(result[1].size))
