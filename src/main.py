@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import argparse
 import numpy as np
 import pulses as pul
