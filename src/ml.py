@@ -31,12 +31,12 @@ def sorting(array, rule='asc'):
 
 def kNN(data, k, params=None):
     """
-    Function that will perform the k-Nearest Neighbors algorithm for data, using
-    all of the params. These params are the parameters that the user might want
-    to test, default is all of them.
+        Function that will perform the k-Nearest Neighbors algorithm for data, using
+        all of the params. These params are the parameters that the user might want
+        to test, default is all of them.
     """
     # these params is to make sure we are only using the parameters necessary to
-    # the teste, this way we could have a more selective approach if it needs to
+    # the test, this way we could have a more selective approach if it needs to
     # come down to that.
 
     # make the param array if it wasn't given
@@ -44,7 +44,7 @@ def kNN(data, k, params=None):
     if params == None:
         for el in data[0]:
             param_len.append(True)
-        params == np.array(param_len)
+        params = np.array(param_len)
 
     # only perform the algorithm to the fields that are True in the params array
     # n_params = params[params == True]
