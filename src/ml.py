@@ -22,7 +22,6 @@ def kNN(data, k):
 
 def naiveBayes(data, target):
     gnb = GaussianNB()
-    # incomplete mus check later
     y_pred = gnb.fit(data, target).predict(data)
 
     return y_pred
