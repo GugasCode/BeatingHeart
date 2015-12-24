@@ -6,6 +6,7 @@ import filters as flt
 import utils.waves as wave
 import utils.files as files
 import utils.charts as chart
+from random import randint
 
 def main():
     parser = argparse.ArgumentParser(description='Beating Heart Project')
@@ -30,17 +31,64 @@ def stdMovArg(data):
     data = flt.movingAverage(data, 6)
     return np.fliplr(data)
 
-if __name__ == '__main__':
-    waves = wave.loadWave(sys.argv[1])
-    frames = wave.getSamples(waves)
-    chart.drawGraphJob(frames)
-    frames = flt.clean(frames)
+def stdClean(data):
+    frames = flt.clean(data)
     frames = stdMovArg(frames)
     frames = flt.halfRate(frames)
-    frames = flt.norm(frames)
+    return flt.norm(frames)
 
+def stdRun(path):
+    waves = wave.loadWave(path)
+    frames = wave.getSamples(waves)
     chart.drawGraphJob(frames)
-    result = pul.findBeats(frames, 4, 4)
-    for i in range(result[0].size):
-        print(result[0][i]*2)
-    print("n beats: " + str(result[1].size))
+    frames = stdClean(frames)
+    chart.drawGraphJob(frames)
+    return pul.findBeats(frames, 4, 6)
+
+def insertName(path, name, mode='w'):
+    f = open(path, mode)
+    f.write(name + ',')
+    f.close()
+
+def saveFile(path):
+    output = "data.xls"
+    f = files.listDir(path)
+    for i in f:
+        print(i)
+        result = stdRun(path + i)
+        insertName(output, i, mode='a')
+        final = result[0]*2
+        files.writeCSV(output, final, mode='a')
+
+def classify(path, clas):
+    f = files.listDir(path)
+    res = []
+    for i in f:
+        waves = wave.loadWave(path+"/"+i)
+        frames = wave.getSamples(waves)
+        res.append((i,frames,clas))
+    return res
+
+def stdClassify(path, folders):
+    l = []
+    for p in folders:
+        l.extend(classify(path+p, p))
+    return l
+
+def makeSets(data, perc=80):
+    size = int(len(data) * (perc/100))
+    test = []
+    while len(data) > size:
+        rand = randint(0,len(data)-1)
+        test.append(data.pop(rand))
+    return (test, data)
+
+if __name__ == '__main__':
+    path = sys.argv[1]
+    # folders = files.getDir(path)
+    # data = stdClassify(path, folders)
+    # test, train = makeSets(data)
+    output = 'test.csv'
+    waves = wave.loadWave(path)
+    frames = wave.getSamples(waves)
+    files.write(output, frames)

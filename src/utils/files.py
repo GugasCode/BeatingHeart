@@ -9,6 +9,11 @@ def listDir(dir_path):
         return None
     return [f for f in listdir(dir_path) if isfile(join(dir_path, f))]
 
+def getDir(dir_path):
+    if not isdir(dir_path):
+        return None
+    return [f for f in listdir(dir_path) if isdir(join(dir_path, f))]
+
 def searchDir(dir_path):
     if not isdir(dir_path):
         return None
@@ -25,22 +30,14 @@ def writeCSV(filename, data, delimit=',', mode='w'):
     with open(filename, mode) as csvfile:
         writer = csv.writer(csvfile, delimiter=delimit)
         nlines=0
-        for element in data:
-            writer.writerow(element)
-            nlines += 1
+        writer.writerow(data.astype(int))
+        nlines += 1
+        csvfile.close()
     return nlines
 
-def grabFile(filepath):
-	"""
-	Function that will grab the contents of a file and puts them in a numpy
-	array with two dimensions.
-	"""
-	content = np.array([[],[]])
-	content[0], content[1] = np.loadtxt(filepath, unpack=True, delimiter=',')
-	return content
-
-def save(outfile, data):
-	np.save(outfile, data)
-
-def load(infile):
-	return np.load(infile)
+def write(filename, data):
+    f = open(filename, "w")
+    for i in range(len(data[0])):
+        f.write(str(data[0][i]) + "," + str(data[1][i]) + "\n")
+    f.close()
+>>>>>>> e6bc977f1fb1e4ba5f6a474ab91337af7d7f496b
