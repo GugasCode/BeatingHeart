@@ -24,7 +24,7 @@ def main():
 
 def convertToSCV(inputFolder, outputFolder):
     """
-        Standart functino to convert wave files in folders
+        Standard function to convert wave files in folders
         to their respective csv files
     """
     src = files.listDir(inputFolder)
@@ -35,7 +35,7 @@ def convertToSCV(inputFolder, outputFolder):
 
 def stdMovArg(data):
     """
-        A good standart to run the moving average filter pass's
+        A good standard to run the moving average filter passes
     """
     data = flt.movingAverage(data, 4)
     data = flt.movingAverage(data, 8)
@@ -65,6 +65,10 @@ def insertName(path, name, mode='w'):
     f.close()
 
 def saveFile(path):
+    """
+        Saves the results in a specific file format.
+        For latter comparison
+    """
     output = "data.xls"
     f = files.listDir(path)
     for i in f:
@@ -75,6 +79,9 @@ def saveFile(path):
         files.writeCSV(output, final, mode='a')
 
 def classify(path, clas):
+    """
+        Makes a tuple with the file name, its frames and its classification
+    """
     f = files.listDir(path)
     res = []
     for i in f:
@@ -83,12 +90,21 @@ def classify(path, clas):
     return res
 
 def stdClassify(path, folders):
+    """
+        Makes a list of tuples with all files classified for use in training and test
+    """
     l = []
     for p in folders:
         l.extend(classify(path+p, p))
     return l
 
 def makeSets(data, perc=80):
+    """
+        Makes a test and training set from a list of all files,
+        the devision is given by the perc(entage) attribute that specifies
+        how much of the total will be used for the training set.
+        The selection itself is made at random.
+    """
     size = int(len(data) * (perc/100))
     test = []
     while len(data) > size:
