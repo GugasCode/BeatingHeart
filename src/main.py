@@ -98,6 +98,8 @@ def makeSets(data, perc=80):
 
 if __name__ == '__main__':
     path = sys.argv[1]
-    folders = files.getDir(path)
-    data = stdClassify(path, folders)
-    test, train = makeSets(data)
+    # folders = files.getDir(path)
+    # data = stdClassify(path, folders)
+    # test, train = makeSets(data)
+    pulse = stdRun(path)
+    print(flt.distinguish(pulse))

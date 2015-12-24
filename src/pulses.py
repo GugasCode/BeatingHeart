@@ -11,7 +11,6 @@ def findBeats(data, ignore, factor):
     ignore = data[1].size * (ignore/100)
     while ignore > 500:
         ignore /=2
-    print("jump: " + str(ignore))
     skip = 0
     for i in range(1,data[1].size-1):
         if i < skip:
