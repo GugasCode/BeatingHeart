@@ -3,6 +3,7 @@ from os.path import isfile, join, isdir
 import numpy as np
 
 import csv
+import numpy as np
 
 def listDir(dir_path):
     if not isdir(dir_path):

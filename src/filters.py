@@ -1,6 +1,15 @@
 import numpy as np
 from sklearn.preprocessing import normalize
 
+def distinguish(data):
+	"""
+		Function that will return True if the file starts with S1 and False if
+		the data starts with S2.
+	"""
+	if data[1]-data[0] > data[2]-data[1]:
+		return True
+	return False
+
 def clean(data):
     avg = np.mean(np.absolute(data[1]))
     data[1] = data[1]/avg
