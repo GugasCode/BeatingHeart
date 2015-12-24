@@ -1,5 +1,6 @@
 from os import listdir
 from os.path import isfile, join, isdir
+import numpy as np
 
 import csv
 
@@ -39,3 +40,7 @@ def write(filename, data):
     for i in range(len(data[0])):
         f.write(str(data[0][i]) + "," + str(data[1][i]) + "\n")
     f.close()
+
+def reader(filename):
+    f, fi = np.loadtxt(filename, unpack=True, delimiter=',')
+    return np.append([np.array(f, np.int32)], [np.array(fi, np.int32)], axis=0)

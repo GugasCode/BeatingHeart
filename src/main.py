@@ -22,7 +22,21 @@ def main():
 
     args = parser.parse_args()
 
+def convertToSCV(inputFolder, outputFolder):
+    """
+        Standart functino to convert wave files in folders
+        to their respective csv files
+    """
+    src = files.listDir(inputFolder)
+    for f in src:
+        waves = wave.loadWave(inputFolder+f)
+        frames = wave.getSamples(waves)
+        files.write(outputFolder + f[:-4] + ".csv", frames)
+
 def stdMovArg(data):
+    """
+        A good standart to run the moving average filter pass's
+    """
     data = flt.movingAverage(data, 4)
     data = flt.movingAverage(data, 8)
     data = flt.movingAverage(data, 6)
@@ -64,8 +78,7 @@ def classify(path, clas):
     f = files.listDir(path)
     res = []
     for i in f:
-        waves = wave.loadWave(path+"/"+i)
-        frames = wave.getSamples(waves)
+        frames = files.reader(path + "/" + i)
         res.append((i,frames,clas))
     return res
 
@@ -85,10 +98,6 @@ def makeSets(data, perc=80):
 
 if __name__ == '__main__':
     path = sys.argv[1]
-    # folders = files.getDir(path)
-    # data = stdClassify(path, folders)
-    # test, train = makeSets(data)
-    output = 'test.csv'
-    waves = wave.loadWave(path)
-    frames = wave.getSamples(waves)
-    files.write(output, frames)
+    folders = files.getDir(path)
+    data = stdClassify(path, folders)
+    test, train = makeSets(data)
