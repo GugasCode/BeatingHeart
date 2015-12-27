@@ -8,6 +8,11 @@ def drawGraph(data):
     ax.plot(data[0], data[1])
     plot.subplots_adjust(bottom=.23)
     plot.grid(True)
+
+    # just a proper labeling for the plotting. Maybe they could be a param
+    plot.xlabel('Frame')
+    plot.ylabel('Amplitude')
+
     plot.show()
 
 def drawGraphJob(data):
