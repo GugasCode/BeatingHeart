@@ -26,7 +26,8 @@ def lowPass(data, const):
 
 def convertFR(frames, fr=2000):
     """
-    Function that will convert the frame rate of a given file to a smaller one.
+        Function that will convert the frame rate of a given file to a smaller
+        one.
     """
     total_frames = len(frames)
     ratio = total_frames % fr
@@ -77,11 +78,12 @@ def avgStep(data, ranges, step):
             data[1][i+j] = aux
     return  data
 
-import sys
-import utils.waves as wave
-import utils.charts as chart
 if __name__ == "__main__":
     """ Unit tests """
+    import sys
+    import utils.waves as wave
+    import utils.charts as chart
+
     waves = wave.loadWave(sys.argv[2])
     result = wave.getSamples(waves)
     print(result)

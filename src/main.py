@@ -46,17 +46,22 @@ def stdMovArg(data):
     return np.fliplr(data)
 
 def stdClean(data):
+    """
+       Standard run using the clean function for each sound file
+    """
     frames = flt.clean(data)
     frames = stdMovArg(frames)
     frames = flt.halfRate(frames)
     return flt.norm(frames)
 
-def stdRun(path):
+def stdRun(path, graph=True):
     waves = wave.loadWave(path)
     frames = wave.getSamples(waves)
-    chart.drawGraphJob(frames)
+    if graph:
+        chart.drawGraphJob(frames)
     frames = stdClean(frames)
-    chart.drawGraphJob(frames)
+    if graph:
+        chart.drawGraphJob(frames)
     return pul.findBeats(frames, 4, 6)
 
 def insertName(path, name, mode='w'):
@@ -112,10 +117,26 @@ def makeSets(data, perc=80):
         test.append(data.pop(rand))
     return (test, data)
 
+def stdRunClassify(path):
+    """
+        Standard run for classify pre given files based on their respective
+        folders.
+        Returns a tuple with the test and data sets.
+    """
+    folders = files.getDir(path)
+    data = stdClassify(path, folders)
+    return makeSets(data)
+
+def stdShannonRun(path, graph=True):
+    frames = files.reader(path)
+    if graph:
+        chart.drawGraphJob(frames)
+    frames = stdClean(frames)
+    if graph:
+        chart.drawGraphJob(frames)
+
 if __name__ == '__main__':
     path = sys.argv[1]
-    # folders = files.getDir(path)
-    # data = stdClassify(path, folders)
-    # test, train = makeSets(data)
-    pulse = stdRun(path)
-    print(flt.distinguish(pulse))
+    output = sys.argv[2]
+    # pulse = stdShannonRun(path)
+    convertToSCV(path, output)

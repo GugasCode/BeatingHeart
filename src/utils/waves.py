@@ -62,9 +62,10 @@ def getSamples(values):
 
     return np.append([np.array(range(len(result)))], [result], axis=0)
 
-import sys
 if __name__ == "__main__":
     """ Unit test """
+    import sys
+
     waves = loadWave(sys.argv[1])
     result = getSamples(waves)
     print(result)

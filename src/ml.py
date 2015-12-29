@@ -12,9 +12,9 @@ from sklearn.naive_bayes import GaussianNB
 
 def kNN(data, k):
     """
-    Implementation of the kNN algorithms for classification. This function
-    accepts the array of data, the k and returns a list with of the k nearest
-    neighbors.
+        Implementation of the kNN algorithms for classification. This function
+        accepts the array of data, the k and returns a list with of the k nearest
+        neighbors.
     """
     nbrs = NearestNeighbors(n_neighbors=k, algorithm='ball_tree').fit(data)
     distances, indices = nbrs.kneighbors(data)
@@ -22,8 +22,8 @@ def kNN(data, k):
 
 def sorting(array, rule='asc'):
     """
-    Auxiliary function that will sort all of the array ascending or descending
-    and keeping track of the original results.
+        Auxiliary function that will sort all of the array ascending or descending
+        and keeping track of the original results.
     """
     count = 0
     for i in array:
