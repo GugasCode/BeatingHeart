@@ -55,10 +55,9 @@ def stdClean(data):
     return flt.norm(frames)
 
 def stdRun(path, graph=True):
-    waves = wave.loadWave(path)
-    frames = wave.getSamples(waves)
-    if graph:
-        chart.drawGraphJob(frames)
+    frames = files.reader(path)
+    # if graph:
+    #     chart.drawGraphJob(frames)
     frames = stdClean(frames)
     if graph:
         chart.drawGraphJob(frames)
@@ -129,14 +128,23 @@ def stdRunClassify(path):
 
 def stdShannonRun(path, graph=True):
     frames = files.reader(path)
+    # if graph:
+    #     chart.drawGraphJob(frames)
+    frames = flt.halfRate(frames)
+    frames = flt.norm(frames)
+    frames = stdMovArg(frames)
+    frames = flt.shannon(frames)
+    # frames = flt.shannon(frames)
+    frames = flt.avgShannon(frames, 40, 20)
     if graph:
         chart.drawGraphJob(frames)
-    frames = stdClean(frames)
-    if graph:
-        chart.drawGraphJob(frames)
+    # return pul.findBeats(frames, 4, 6)
+    return frames
 
 if __name__ == '__main__':
     path = sys.argv[1]
-    output = sys.argv[2]
     # pulse = stdShannonRun(path)
-    convertToSCV(path, output)
+    # pulseStd = stdRun(path)
+    # print(pulse[0])
+    # print(pulseStd[0])
+    frames = stdShannonRun(path)

@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.preprocessing import normalize
+from scipy.fftpack import hilbert
 
 def distinguish(data):
     """
@@ -9,6 +9,10 @@ def distinguish(data):
     return data[0][1] - data[0][0] > data[0][2] - data[0][1]
 
 def clean(data):
+    """
+        Simple clean function that just devides all values by the averague of
+        thenselfs
+    """
     avg = np.mean(np.absolute(data[1]))
     data[1] = data[1]/avg
     return data
@@ -64,19 +68,34 @@ def halfRate(data):
     return np.append([np.array(range(len(result)))], [result], axis=0)
 
 def shannon(data):
-    n = data ** 2
-    return -n*np.log((n+0.000001))
+    n = data[1] ** 2
+    return np.append([data[0]], [-n*np.log((n+0.00000001))], axis=0)
 
-def avgStep(data, ranges, step):
-    size = data[0].size - ranges
+def avgShannon(data, width, step):
+    size = data[0].size - width
     for i in range(0, size, step):
         aux = 0.0
-        for j in range(ranges):
+        for j in range(width):
             aux += data[1][i+j]
-        aux /= ranges
-        for j in range(ranges):
+        aux /= width
+        for j in range(width):
             data[1][i+j] = aux
     return  data
+
+#TODO:make this work
+def hilbertEnv(data, step):
+    res = np.array([])
+    size = data[1].size - step - 1
+    print(data[1].size)
+    print(size)
+    i = 0
+    while i < size:
+        aux = hilbert(data[1][i:i+step])
+        print(data[0][i])
+        print(aux)
+        res = np.append(res, aux)
+        i += 100
+    return np.append([range(len(res))], [res], axis=0)
 
 if __name__ == "__main__":
     """ Unit tests """
