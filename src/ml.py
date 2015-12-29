@@ -1,8 +1,8 @@
 """
-Machine Learning Module where there will be the algorithms for the analysis of
-the data.
-Mostly if not all of the components present here will be implemented with numpy
-and scipy libs in order to keep feasable results in terms of time and resources.
+    Machine Learning Module where there will be the algorithms for the analysis of
+    the data.
+    Mostly if not all of the components present here will be implemented with numpy
+    and scipy libs in order to keep feasable results in terms of time and resources.
 """
 
 import numpy as np
