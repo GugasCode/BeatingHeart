@@ -29,6 +29,17 @@ def sorting(array, rule='asc'):
     for i in array:
         pos = 0
 
+def stdSort(data, rule='asc'):
+    """
+        Standard method for sorting data using tuples per numpy array.
+    """
+    if rule is 'asc':
+        return sorted(data, key=lambda (user_id, num_friends): \
+            num_friends, reverse=True)
+    else:
+        return sorted(data, key=lambda (user_id, num_friends): \
+            num_friends)
+
 def kNN(data, k, params=None):
     """
         Function that will perform the k-Nearest Neighbors algorithm for data,
