@@ -87,8 +87,9 @@ class Bayes():
 
 
 class KNN():
-    def __init__(self, data):
+    def __init__(self, data, k):
         self.data = data
+        self.k = k
 
     def distance(self, test):
         size = len(test)-2
@@ -97,5 +98,14 @@ class KNN():
                 dist = 0
                 for element in range(1, size):
                         dist += (item[element] - test[element])**2
-                distances.append(item[0], dist)
+                distances.append((item[0], dist))
         return distances
+
+    def classify(self, test, k):
+        distances = self.distance(test)
+        distances.sort(key=operator.itemgetter(1))
+
+        neighbors = []
+        for x in range(k):
+                neighbors.append(distances[x][0])
+        return neighbors
