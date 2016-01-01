@@ -54,6 +54,13 @@ def movingAverage(data, step):
         data[1][i] = aux / step
     return data
 
+def mvgAverageOpt(data, step=10):
+    """
+        Optimized moving average function for numpy arrays. 
+    """
+    window = np.ones((step)/float(step))
+    return np.convolve(data, window, 'same')
+
 def norm(data):
     data = data.astype(np.float32)
     data[1] = data[1]/(np.absolute(data[1])).max()
