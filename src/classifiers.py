@@ -39,6 +39,24 @@ class Bayes():
 		for key, value in self.data:
 			self.class_probs[key] = len(values)
 
+	def conditionals(self, test, classification, param):
+		"""
+			Method to calculate the conditional probability for a specific
+			parameter.
+		"""
+		sum(self.data[classification])
+
+
 class KNN():
-	def __init__(self):
-		pass
+	def __init__(self, data):
+		self.data = data
+
+	def distance(self, test):
+		size = len(test)-2
+		dsitances = []
+		for item in self.data:
+			dist = 0
+			for element in range(1, size):
+				dist += (item[element] - test[element])**2
+			distances.append(item[0], dist)
+		return distances
