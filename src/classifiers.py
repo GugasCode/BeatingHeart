@@ -4,6 +4,7 @@ project, for now there is the kNN and the Naive Bayes classifiers.
 """
 # Using Python 3
 import numpy as np
+import math
 
 class Bayes():
     """
@@ -39,7 +40,7 @@ class Bayes():
         for key, value in self.data:
                 self.class_probs[key] = len(values)
 
-    def conditionals(self, test, training_class, param):
+    def conditional(self, test, training_class, param):
         """
                 Method to calculate the conditional probability for a specific
                 parameter.
@@ -62,17 +63,17 @@ class Bayes():
             finish.
         """
         # seperate the data
-        separated()
+        self.separated()
 
         # calculate the absolut probabilities (porbability of being of a class)
-        probabilities()
+        self.probabilities()
 
         # get all of the probabilities to check which is highest
         results = {}
         for item in self.data.key():
             sums = 0
             for i in range(0,4):
-                sums += log(conditional(test, item, i))
+                sums += math.log(self.conditional(test, item, i))
             results[item] = sums
 
         #finding the best fit after all of the calculations
