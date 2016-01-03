@@ -133,8 +133,13 @@ class NeuralNet():
             return x*(1-x)
         return 1 / (1+np.exp(-x))
 
-    def iteration(self):
+    def iteration(self, data):
         """
             Method that simulates one iteration of the Neural Network.
         """
-        for item, value in self.params.items():
+        l0 = data
+        l1 = self.sigmoid(np.dot(l0))
+
+        l1_error = np.array(range(100))
+
+        l1_delta = l1_error * sigmoid(l1, True)
