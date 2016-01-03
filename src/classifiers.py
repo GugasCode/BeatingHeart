@@ -5,6 +5,7 @@ project, for now there is the kNN and the Naive Bayes classifiers.
 # Using Python 3
 import numpy as np
 import math
+import random
 
 class Bayes():
     """
@@ -96,10 +97,10 @@ class KNN():
         size = len(test)-2
         dsitances = []
         for item in self.data:
-                dist = 0
-                for element in range(1, size):
-                        dist += (item[element] - test[element])**2
-                distances.append((item[0], dist))
+            dist = 0
+            for element in range(1, size):
+                dist += (item[element] - test[element])**2
+            distances.append((item[0], dist))
         return distances
 
     def classify(self, test, k):
@@ -108,5 +109,32 @@ class KNN():
 
         neighbors = []
         for x in range(k):
-                neighbors.append(distances[x][0])
+            neighbors.append(distances[x][0])
         return neighbors
+
+class NeuralNet():
+    """
+        Class that will represent the Neural Network implementation for our
+        project.
+    """
+    def __init__(self, data, params):
+        """
+            Initialization of the weights of the parameters
+        """
+        self.data = data
+        for item in params:
+            self.params[item] = random.random()
+
+    def sigmoid(self, x, deriv=False):
+        """
+            Method that emulates the sigmoid function.
+        """
+        if deriv:
+            return x*(1-x)
+        return 1 / (1+np.exp(-x))
+
+    def iteration(self):
+        """
+            Method that simulates one iteration of the Neural Network.
+        """
+        for item, value in self.params.items():
