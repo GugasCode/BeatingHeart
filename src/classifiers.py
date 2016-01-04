@@ -4,6 +4,8 @@ project, for now there is the kNN and the Naive Bayes classifiers.
 """
 # Using Python 3
 import numpy as np
+import math
+import random
 
 class Bayes():
     """
@@ -39,7 +41,7 @@ class Bayes():
         for key, value in self.data:
                 self.class_probs[key] = len(values)
 
-    def conditionals(self, test, training_class, param):
+    def conditional(self, test, training_class, param):
         """
                 Method to calculate the conditional probability for a specific
                 parameter.
@@ -62,17 +64,17 @@ class Bayes():
             finish.
         """
         # seperate the data
-        separated()
+        self.separated()
 
         # calculate the absolut probabilities (porbability of being of a class)
-        probabilities()
+        self.probabilities()
 
         # get all of the probabilities to check which is highest
         results = {}
         for item in self.data.key():
             sums = 0
             for i in range(0,4):
-                sums += log(conditional(test, item, i))
+                sums += math.log(self.conditional(test, item, i))
             results[item] = sums
 
         #finding the best fit after all of the calculations
@@ -95,10 +97,10 @@ class KNN():
         size = len(test)-2
         dsitances = []
         for item in self.data:
-                dist = 0
-                for element in range(1, size):
-                        dist += (item[element] - test[element])**2
-                distances.append((item[0], dist))
+            dist = 0
+            for element in range(1, size):
+                dist += (item[element] - test[element])**2
+            distances.append((item[0], dist))
         return distances
 
     def classify(self, test, k):
@@ -107,5 +109,37 @@ class KNN():
 
         neighbors = []
         for x in range(k):
-                neighbors.append(distances[x][0])
+            neighbors.append(distances[x][0])
         return neighbors
+
+class NeuralNet():
+    """
+        Class that will represent the Neural Network implementation for our
+        project.
+    """
+    def __init__(self, data, params):
+        """
+            Initialization of the weights of the parameters
+        """
+        self.data = data
+        for item in params:
+            self.params[item] = random.random()
+
+    def sigmoid(self, x, deriv=False):
+        """
+            Method that emulates the sigmoid function.
+        """
+        if deriv:
+            return x*(1-x)
+        return 1 / (1+np.exp(-x))
+
+    def iteration(self, data):
+        """
+            Method that simulates one iteration of the Neural Network.
+        """
+        l0 = data
+        l1 = self.sigmoid(np.dot(l0))
+
+        l1_error = np.array(range(100))
+
+        l1_delta = l1_error * sigmoid(l1, True)
