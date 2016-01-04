@@ -147,4 +147,7 @@ if __name__ == '__main__':
     # pulseStd = stdRun(path)
     # print(pulse[0])
     # print(pulseStd[0])
-    frames = stdShannonRun(path)
+    # frames = stdShannonRun(path)
+    frames = stdRun(path)
+    frames = flt.shannon(frames)
+    frames = flt.avgShannon(frames, 40, 20)
