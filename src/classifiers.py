@@ -124,7 +124,7 @@ class KNN():
             else:
                 maximum[key] += 1
 
-        return max(maximum.items(), key operator.itemgetter(1))[0]
+        return max(maximum.items(), key=operator.itemgetter(1))[0]
 
     def classify(self, test, k):
         distances = self.distance(test)
