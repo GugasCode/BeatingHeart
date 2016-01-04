@@ -1,0 +1,192 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{glossaries}
+\usepackage{flushend}
+
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+  \graphicspath{.}
+\else
+\fi
+
+\newacronym{wave}{WAVE}{Waveform Audio File Format}
+
+\begin{document}
+\title{Heartbeat Sound Classification}
+
+\author{\IEEEauthorblockN{Gustavo Gomes}
+\IEEEauthorblockA{Faculty of Engineering\\
+University of Beira Interior\\
+Email: a30232@ubi.pt}
+\and
+\IEEEauthorblockN{José Monteiro}
+\IEEEauthorblockA{Faculty of Engineering\\
+University of Beira Interior\\
+Email: a31366@ubi.pt}
+\and
+\IEEEauthorblockN{Pedro Silvestre}
+\IEEEauthorblockA{Faculty of Engineering\\
+University of Beira Interior\\
+Email: a31269@ubi.pt}
+}
+
+\maketitle
+
+\begin{abstract}
+Heart problems are one of the major causes of death world wide, therefore it's
+crucial to detect such problems efficiently. The answer is to automate the
+detection of anomalies in order to correctly detect individuals who are at risk
+and consequently prevent further deaths. To that extent we were asked to develop
+a machine learning system, that can properly classify sound files, containing
+heartbeats and identify if they seem to come from a subject with a heart defect
+or not.
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+In the beginning of the current semester we were proposed to develop a system
+that can detect heart defects in sound files. To that end we received
+\acrfull{wave} files containing the sound of heartbeats and process them in
+order to detect every heartbeat in them. Afterwards, we should analyze the
+patterns of those heartbeats and try to classify them according to a test
+dataset that we had also received.
+
+\section{Implementation Decisions}
+To achieve the expected results proposed by the professor we chose to use Python
+and also after some research we stumbled upon some python libraries and we made
+use of the following packages:
+\begin{itemize}
+	\item \textit{Numpy}
+	\item \textit{Scipy}
+	\item \textit{Matplotlib}
+	\item \textit{CSV}
+	\item \textit{scikit-learn}
+\end{itemize}
+
+We have firstly started using Python's lists and some coded functions that would
+do all the calculations. When we received the second dataset for testing, the
+need for more efficiency that arose because the lists started to become a tad
+slow. That was when we decided to implement our functions in \textit{Numpy}
+arrays and use the syntactical sugar that came with it. We have decided to
+skip the Shannon's energy, filtering step because it would stop our system from
+distinguishing the two different types of heartbeats. So to that extent we
+ended up only performing the following steps of the recommended filtering
+process:
+\begin{enumerate}
+	\item Frame Rate conversion
+	\item Moving average
+	\item Normalization
+\end{enumerate}
+
+\section{Critical Review}
+Our project is becoming more and more complex and we had a few difficulties
+because we didn't prepare our data in a way that was maintainable so with the
+change of our data, from heartbeats to the four parameters that were asked for
+the classification problems we ended up making a lot of changes to our code.
+
+We would have wanted to make a genetic algorithm and run our neural network with
+the goal of find any type of correlations between the parameters we were testing
+and the different classes. This would be helpful to find if one or more of our
+parameters are more relevant to a specific class, and this would be some
+valuable insights towards heart deffect detection.
+
+Because we are very critical about our work we thinkk that our work isn't as
+good as it could be since we still don't have a perfect algorithm for pulse
+verification and we also didn't had too much attention to the optimization of
+our classifiers so it is a system that actually takes some time to process the
+data, even for just one file which is quite bad in our standards.
+
+\begin{table}
+\label{table:Error results}
+\begin{tabular}{l | r }
+	Filename & Error \\
+	\hline
+	150\_{}1306776340746\_{}B.csv & 2695.5 \\
+	109\_{}1305653646620\_{}C.csv & 681.5 \\
+	154\_{}1306935608852\_{}B.csv & 573.0 \\
+	150\_{}1306776340746\_{}C.csv & 621.0 \\
+	139\_{}1306519274653\_{}A.csv & 34.0 \\
+	143\_{}1306763822290\_{}C.csv & 10.0 \\
+	128\_{}1306344005749\_{}B.csv & 528.0 \\
+	128\_{}1306344005749\_{}D1.csv & 23.0 \\
+	153\_{}1306848820671\_{}B1.csv & 514.0 \\
+	128\_{}1306344005749\_{}D.csv & 8.0 \\
+	159\_{}1307018640315\_{}A.csv & 12.5 \\
+	115\_{}1306259437619\_{}C.csv & 628.0 \\
+	133\_{}1306759619127\_{}D.csv & 615.5 \\
+	146\_{}1306778707532\_{}D4.csv & 1489.0 \\
+	146\_{}1306778707532\_{}D2.csv & 524.5 \\
+	126\_{}1306777102824\_{}D.csv & 632.5 \\
+	129\_{}1306344506305\_{}D1.csv & 589.5 \\
+	137\_{}1306764999211\_{}D.csv & 355.0 \\
+	141\_{}1306520154450\_{}B.csv & 451.5 \\
+	106\_{}1306776721273\_{}C1.csv & 649.5 \\
+	133\_{}1306759619127\_{}B.csv & 11.5 \\
+	154\_{}1306935608852\_{}D.csv & 1738.0 \\
+	134\_{}1306428161797\_{}C.csv & 3279.5 \\
+	152\_{}1306779561195\_{}D.csv & 36.5 \\
+	154\_{}1306935608852\_{}A1.csv & 4.0 \\
+	113\_{}1306244002866\_{}D.csv & 37.5 \\
+	168\_{}1307970069434\_{}A2.csv & 45.5 \\
+	146\_{}1306778707532\_{}A.csv & 521.5 \\
+	153\_{}1306848820671\_{}B.csv & 2633.5 \\
+	103\_{}1305031931979\_{}D3.csv & 4591.5 \\
+	140\_{}1306519735121\_{}D1.csv & 28.0 \\
+	129\_{}1306344506305\_{}B1.csv & 44.5 \\
+	145\_{}1307987561278\_{}B.csv & 654.0 \\
+	106\_{}1306776721273\_{}D1.csv & 674.5 \\
+	146\_{}1306778707532\_{}D1.csv & 24607.5 \\
+	149\_{}1306776016110\_{}B.csv & 37.0 \\
+	151\_{}1306779785624\_{}A.csv & 524.5 \\
+	159\_{}1307018640315\_{}C1.csv & 24.0 \\
+	152\_{}1306779561195\_{}C1.csv & 16.5 \\
+	152\_{}1306779561195\_{}B1.csv & 840.5 \\
+	153\_{}1306848820671\_{}A.csv & 549.5 \\
+	134\_{}1306428161797\_{}D.csv & 32.0 \\
+	127\_{}1306764300147\_{}B.csv & 1859.0 \\
+	145\_{}1307987561278\_{}C.csv & 20.0 \\
+	125\_{}1306332456645\_{}B.csv & 316.5 \\
+	158\_{}1306947254705\_{}B2.csv & 579.5 \\
+	168\_{}1307970069434\_{}A.csv & 608.5 \\
+	153\_{}1306848820671\_{}D1.csv & 1631.0 \\
+	147\_{}1306523973811\_{}C.csv & 575.5 \\
+	149\_{}1306776016110\_{}C1.csv & 4476.5 \\
+	148\_{}1306768801551\_{}C1.csv & 524.5 \\
+	141\_{}1306520154450\_{}C.csv & 482.0 \\
+	155\_{}1306935902813\_{}B1.csv & 9.0 \\
+	117\_{}1306262456650\_{}B.csv & 1819.0 \\
+	140\_{}1306519735121\_{}A.csv & 567.5 \\
+	143\_{}1306763822290\_{}B.csv & 27.0 \\
+	103\_{}1305031931979\_{}D1.csv & 57.5 \\
+	127\_{}1306764300147\_{}A.csv & 735.5 \\
+	127\_{}1306764300147\_{}C1.csv & 308.5 \\
+	129\_{}1306344506305\_{}D.csv & 97.0 \\
+
+\end{tabular}
+\end{table}
+
+\section{Conclusion}
+This project as widened our view of what Artificial Intelligence meant to us,
+making us more aware of the vast possibilities that can be done using the
+classifiers for example and also the neural netwrok. Before it we thought that
+Artificial Intelligence was just like in the movies where a machine can think
+and learn like a human being, but now we have started to get very interested in
+some areas like for example Natural Language Processing, or Machine Learning and
+we have also started to look at deep learning because of some media attention
+it is getting these days.
+
+We also agreed that this was an intersting topic because we never knew that we
+could apply concept of Artificial Intelligence towards health and after this
+course we realized that there could be a great number of applications towards
+medical research and disease detection.
+
+\section*{Acknowledgment}
+The authors would like to thank Professor Paulo A. P. Fazendeiro for the
+opportunity to work with real world problems for this project.
+
+We would also like to thank Guido von Rossum for the creation of Python, because
+without it the authors feel that the amount of hours they would require to make
+such project.
+
+\end{document}
