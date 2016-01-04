@@ -159,18 +159,7 @@ if __name__ == '__main__':
     test, train = makeSets(cl, perc=80)
     knn = KNN(train, 1)
     print(test[1])
-    #['148_1306768801551_B.csv', [[array([ 1040.,  1060.,  1040.,  1040.,  1060.,  1080.])], [array([ 500.,  520.,  520.,  560.,  580.,  600.])]], 'extraSistolicos']
     print(test[1][1])
-    #[[array([ 1040.,  1060.,  1040.,  1040.,  1060.,  1080.])], [array([ 500.,  520.,  520.,  560.,  580.,  600.])]]
-    classification = knn.classify(test[1][1],1)
-    #fails here
-    #Traceback (most recent call last):
-    #  File "main.py", line 163, in <module>
-    #    classification = knn.classify(test[1][1],1)
-    #  File "/home/jfilipe/projects/BeatingHeart/src/classifiers.py", line 128, in classify
-    #    distances = self.distance(test)
-    #  File "/home/jfilipe/projects/BeatingHeart/src/classifiers.py", line 109, in distance
-    #    dist += (item[element] - test[element])**2
-    #TypeError: unsupported operand type(s) for -: 'str' and 'list'
+    classification = knn.classify([test[1][1][0],test[1][1][0]],1)
     print(classification)
 

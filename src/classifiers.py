@@ -105,7 +105,7 @@ class KNN():
         distances = []
         for item in self.data:
             dist = 0
-            for element in range(len(item[1])):
+            for element in item[1]:
                 dist += (item[element] - test[element])**2
             distances.append((item[2], dist))
         return distances
