@@ -64,6 +64,20 @@ use of the following packages:
 	\item \textit{scikit-learn}
 \end{itemize}
 
+
+% not sure where to put this
+Our project is made out of various modules:
+\begin{itemize}
+	\item \textit{ml}
+	\item \textit{classifiers}
+	\item \textit{charts}
+	\item \textit{files}
+	\item \textit{filters}
+	\item \textit{waves}
+	\item \textit{pulses}
+\begin{itemize}
+% "this" ends here
+
 We have firstly started using Python's lists and some coded functions that would
 do all the calculations. When we received the second dataset for testing, the
 need for more efficiency that arose because the lists started to become a tad
@@ -78,6 +92,26 @@ process:
 	\item Moving average
 	\item Normalization
 \end{enumerate}
+
+% New stuff
+For the next part of our project, the classification problem we have decided to
+create one class for the two classificators that were asked, k-Nearest-Neighbors
+and Naive Bayes. With this decision we wanted to make our job much easier
+because we only need to create the object and padd it our training set and
+afterwards simply pass every element of our test set and it will abstract the
+programmer from worrying about the underlying work of the classificator.
+
+Our classifiers are implemented, we won't talk much about them because they are
+standard classifiers implemeting formulas so we will jump right to the results:
+% put the results here using a confusion matrix
+
+We have also decided to make a class for our Neural Netwrok, because we want to
+identify which attributes of the problem at hand. Unfortunately at the time of
+writing our classifiers are not prepared to make weighted classification so we
+wer unable to test this feature and we can't publish the results.
+Basically we will give each one of the four parameters a weight and our
+classifiers will use it to infer new conlcusions over the data and afterwards
+we check for the error of the classification steps.
 
 \section{Critical Review}
 Our project is becoming more and more complex and we had a few difficulties
@@ -185,7 +219,7 @@ medical research and disease detection.
 The authors would like to thank Professor Paulo A. P. Fazendeiro for the
 opportunity to work with real world problems for this project.
 
-We would also like to thank Guido von Rossum for the creation of Python, because
+We would also like to thank Guido van Rossum for the creation of Python, because
 without it the authors feel that the amount of hours they would require to make
 such project.
 
