@@ -6,6 +6,8 @@ project, for now there is the kNN and the Naive Bayes classifiers.
 import numpy as np
 import math
 import random
+import operator
+# from collections import Counter
 
 class Bayes():
     """
@@ -108,14 +110,26 @@ class KNN():
             distances.append((item[2], dist))
         return distances
 
+    def decideClass(self, dists):
+        """
+            Method that will receive the k nearest neighbors and simply return
+            the class which is more present in those distances.
+        """
+        maximum = {}
+        for key, value in dists:
+            if maximum[key] == None:
+                maximum[key] = 1
+            else:
+                maximum[key] += 1
+
+        return max(maximum.items(), key=operator.itemgetter(1))[0]
+
     def classify(self, test, k):
         distances = self.distance(test)
         distances.sort(key=operator.itemgetter(1))
 
-        neighbors = []
-        for x in range(k):
-            neighbors.append(distances[x][0])
-        return neighbors
+        classification = decideClass(distances[:-k])
+        return classification
 
 class NeuralNet():
     """
