@@ -64,6 +64,22 @@ def stdRun(path, graph=True):
         chart.drawGraphJob(frames)
     return pul.findBeats(frames, 4, 6)
 
+def stdShannonRun(path, graph=True, reader=True):
+    if reader:
+        frames = files.reader(path)
+    else:
+        frames = path
+    # if graph:
+    #     chart.drawGraphJob(frames)
+    frames = flt.halfRate(frames)
+    frames = flt.norm(frames)
+    frames = stdMovArg(frames)
+    frames = flt.shannon(frames)
+    frames = flt.avgShannon(frames, 40, 20)
+    if graph:
+        chart.drawGraphJob(frames)
+    return pul.findBeats(frames, 4, 6)
+
 def insertName(path, name, mode='w'):
     f = open(path, mode)
     f.write(name + ',')
@@ -77,7 +93,6 @@ def saveFile(path):
     output = "data.xls"
     f = files.listDir(path)
     for i in f:
-        print(i)
         result = stdRun(path + i)
         insertName(output, i, mode='a')
         final = result[0]*2
@@ -91,7 +106,7 @@ def classify(path, clas):
     res = []
     for i in f:
         frames = files.reader(path + "/" + i)
-        res.append((i,frames,clas))
+        res.append([i,frames,clas])
     return res
 
 def stdClassify(path, folders):
@@ -101,6 +116,7 @@ def stdClassify(path, folders):
     l = []
     for p in folders:
         l.extend(classify(path+p, p))
+        break
     return l
 
 def makeSets(data, perc=80):
@@ -127,30 +143,34 @@ def stdRunClassify(path):
     data = stdClassify(path, folders)
     return makeSets(data)
 
-def stdShannonRun(path, graph=True):
-    frames = files.reader(path)
-    # if graph:
-    #     chart.drawGraphJob(frames)
-    frames = flt.halfRate(frames)
-    frames = flt.norm(frames)
-    frames = stdMovArg(frames)
-    frames = flt.shannon(frames)
-    # frames = flt.shannon(frames)
-    frames = flt.avgShannon(frames, 40, 20)
-    if graph:
-        chart.drawGraphJob(frames)
-    return pul.findBeats(frames, 4, 6)
-    # return frames
+def runOnClassified(data):
+    for i in range(len(data)):
+        aux = stdShannonRun(data[i][1], graph=False, reader=False)
+        t11 = pul.getT11(aux[0], flt.distinguish(aux))
+        t12 = pul.getT12(aux[0], flt.distinguish(aux))
+        data[i][1] = [[t11],[t12]]
+    return data
 
 if __name__ == '__main__':
     path = sys.argv[1]
-    # pulse = stdShannonRun(path)
-    # pulse = stdRun(path, graph=True)
-    # print(pulse[0])
-    # point = pul.getT11(pulse[0], flt.distinguish(pulseStd))
-    # print("T11 = " + str(point))
-    # point = pul.getT12(pulse[0], flt.distinguish(pulseStd))
-    # print("T12 = " + str(point))
     folders = files.getDir(path)
     cl = stdClassify(path, folders)
-    test, train = makeSets(data, perc=80)
+    cl = runOnClassified(cl)
+    test, train = makeSets(cl, perc=80)
+    knn = KNN(train, 1)
+    print(test[1])
+    #['148_1306768801551_B.csv', [[array([ 1040.,  1060.,  1040.,  1040.,  1060.,  1080.])], [array([ 500.,  520.,  520.,  560.,  580.,  600.])]], 'extraSistolicos']
+    print(test[1][1])
+    #[[array([ 1040.,  1060.,  1040.,  1040.,  1060.,  1080.])], [array([ 500.,  520.,  520.,  560.,  580.,  600.])]]
+    classification = knn.classify(test[1][1],1)
+    #fails here
+    #Traceback (most recent call last):
+    #  File "main.py", line 163, in <module>
+    #    classification = knn.classify(test[1][1],1)
+    #  File "/home/jfilipe/projects/BeatingHeart/src/classifiers.py", line 128, in classify
+    #    distances = self.distance(test)
+    #  File "/home/jfilipe/projects/BeatingHeart/src/classifiers.py", line 109, in distance
+    #    dist += (item[element] - test[element])**2
+    #TypeError: unsupported operand type(s) for -: 'str' and 'list'
+    print(classification)
+
