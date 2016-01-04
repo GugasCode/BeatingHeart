@@ -56,7 +56,7 @@ def movingAverage(data, step):
 
 def mvgAverageOpt(data, step=10):
     """
-        Optimized moving average function for numpy arrays. 
+        Optimized moving average function for numpy arrays.
     """
     window = np.ones((step)/float(step))
     return np.convolve(data, window, 'same')

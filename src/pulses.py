@@ -22,3 +22,26 @@ def findBeats(data, ignore, factor):
                 amp = np.append(amp, [data[1][i]])
                 skip = i + ignore
     return np.append([frames], [amp], axis=0)
+
+def findPoints(data, cut):
+    pass
+
+def getT11(data, startS1):
+    start = 0
+    if startS1 == True:
+        start = 1
+    res = np.array([])
+    for i in range(start, len(data)-3, 2):
+        aux = data[i+2] - data[i]
+        res = np.append(res, [aux])
+    return res
+
+def getT12(data, startS1):
+    start = 0
+    if startS1 == True:
+        start = 1
+    res = np.array([])
+    for i in range(start, len(data)-2, 2):
+        aux = data[i+1] - data[i]
+        res = np.append(res, [aux])
+    return res

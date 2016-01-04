@@ -6,6 +6,7 @@ import filters as flt
 import utils.waves as wave
 import utils.files as files
 import utils.charts as chart
+from classifiers import Bayes, KNN
 from random import randint
 
 def main():
@@ -138,16 +139,18 @@ def stdShannonRun(path, graph=True):
     frames = flt.avgShannon(frames, 40, 20)
     if graph:
         chart.drawGraphJob(frames)
-    # return pul.findBeats(frames, 4, 6)
-    return frames
+    return pul.findBeats(frames, 4, 6)
+    # return frames
 
 if __name__ == '__main__':
     path = sys.argv[1]
     # pulse = stdShannonRun(path)
-    # pulseStd = stdRun(path)
+    # pulse = stdRun(path, graph=True)
     # print(pulse[0])
-    # print(pulseStd[0])
-    # frames = stdShannonRun(path)
-    frames = stdRun(path)
-    frames = flt.shannon(frames)
-    frames = flt.avgShannon(frames, 40, 20)
+    # point = pul.getT11(pulse[0], flt.distinguish(pulseStd))
+    # print("T11 = " + str(point))
+    # point = pul.getT12(pulse[0], flt.distinguish(pulseStd))
+    # print("T12 = " + str(point))
+    folders = files.getDir(path)
+    cl = stdClassify(path, folders)
+    test, train = makeSets(data, perc=80)
