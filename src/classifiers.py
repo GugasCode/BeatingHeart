@@ -90,17 +90,24 @@ class Bayes():
 
 class KNN():
     def __init__(self, data, k):
+        """
+            Initialization method for the kNN algorithm
+        """
         self.data = data
         self.k = k
 
     def distance(self, test):
+        """
+            Method that will calculate the distance of the test subject to the
+            data inside the self.data variable that represents the training.
+        """
         size = len(test)-2
-        dsitances = []
+        distances = []
         for item in self.data:
             dist = 0
-            for element in range(1, size):
+            for element in item[1]:
                 dist += (item[element] - test[element])**2
-            distances.append((item[0], dist))
+            distances.append((item[2], dist))
         return distances
 
     def classify(self, test, k):
