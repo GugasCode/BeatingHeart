@@ -11,6 +11,16 @@ import operator
 
 # clearly we need a function that is going to make all of the data turn into
 # arrays os T param arrays
+def parseData(data):
+    # it only send the first one there
+    aux = np.array(['',[],''])
+    for item in data:
+        for a,b,c in item:
+            aux[0] = a
+            for i, j in zip(b):
+                aux[1] = np.array([i,j])
+            aux[2] = c
+    return aux
 
 class Bayes():
     """
@@ -98,6 +108,7 @@ class KNN():
         """
         self.data = data
         self.k = k
+        print(data)
 
     def distance(self, test):
         """
