@@ -158,8 +158,10 @@ if __name__ == '__main__':
     cl = runOnClassified(cl)
     test, train = makeSets(cl, perc=80)
     knn = KNN(train, 1)
-    print(test[1])
-    print(test[1][1])
-    classification = knn.classify([test[1][1][0],test[1][1][0]],1)
+    # print(test[1])
+    # print(test[1][1])
+    print(test[1][1][0][0][0])
+    print(test[1][1][1][0][0])
+    classification = knn.classify([test[1][1][0][0],test[1][1][0][0]],1)
     print(classification)
 
