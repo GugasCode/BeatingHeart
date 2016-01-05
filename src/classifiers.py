@@ -9,6 +9,9 @@ import random
 import operator
 # from collections import Counter
 
+# clearly we need a function that is going to make all of the data turn into
+# arrays os T param arrays
+
 class Bayes():
     """
         Class that will represent the Naive Bayes classifier.
@@ -103,7 +106,7 @@ class KNN():
         """
         size = len(test)-2
         distances = []
-        for item in self.data:
+        for item in self.data: # we need the data to be pairs of T params
             dist = 0
             for element in item[1]:
                 dist += (item[element] - test[element])**2
