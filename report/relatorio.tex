@@ -95,11 +95,11 @@ process:
 
 % New stuff
 For the next part of our project, the classification problem we have decided to
-create one class for the two classificators that were asked, k-Nearest-Neighbors
+create one class for the two classifications that were asked, k-Nearest-Neighbors
 and Naive Bayes. With this decision we wanted to make our job much easier
-because we only need to create the object and padd it our training set and
+because we only need to create the object and pad it our training set and
 afterwards simply pass every element of our test set and it will abstract the
-programmer from worrying about the underlying work of the classificator.
+programmer from worrying about the underlying work of the classification.
 
 We have also decided to put the data into a structure that is basically composed
 of the name of the file, all of the parameters and at the end of every data
@@ -108,19 +108,17 @@ simply choose the first pair of every file, we also thought about making the
 mean of every pair of S1 and S2 because it would be more uniform, but made the
 decision to only use the first in every file.
 
-Our classifiers are implemented, we won't talk much about them because they are
-standard classifiers implemeting formulas so we will jump right to the results:
 One thing that might be different from the other classifiers is that we have
 functions to format the data, and to divide each file into tuples that account
 for the four parameters.
 % put the results here using a confusion matrix
 
-We have also decided to make a class for our Neural Netwrok, because we want to
+We have also decided to make a class for our Neural Network, because we want to
 identify which attributes of the problem at hand. Unfortunately at the time of
 writing our classifiers are not prepared to make weighted classification so we
-wer unable to test this feature and we can't publish the results.
+wore unable to test this feature and we can't publish the results.
 Basically we will give each one of the four parameters a weight and our
-classifiers will use it to infer new conlcusions over the data and afterwards
+classifiers will use it to infer new conclusions over the data and afterwards
 we check for the error of the classification steps.
 
 \section{Critical Review}
@@ -134,9 +132,9 @@ We would have wanted to make a genetic algorithm and run our neural network with
 the goal of find any type of correlations between the parameters we were testing
 and the different classes. This would be helpful to find if one or more of our
 parameters are more relevant to a specific class, and this would be some
-valuable insights towards heart deffect detection.
+valuable insights towards heart defect detection.
 
-Because we are very critical about our work we thinkk that our work isn't as
+Because we are very critical about our work we think that our work isn't as
 good as it could be since we still don't have a perfect algorithm for pulse
 verification and we also didn't had too much attention to the optimization of
 our classifiers so it is a system that actually takes some time to process the
@@ -145,19 +143,94 @@ data, even for just one test file which is quite bad in our standards.
 The project itself is interesting but we must say that we could have made much
 more of an effort towards making something that could be a production grade
 application with multiple algorithms and a bigger abstraction of the input data
+<<<<<<< HEAD
 to aid us in future projects.
 
 \section{Conclusion}
+=======
+to aid us on future projects.
+
+\begin{table}
+\label{table:Error results}
+\begin{tabular}{l | r }
+	Filename & Error \\
+	\hline
+	150\_{}1306776340746\_{}B.csv & 2695.5 \\
+	109\_{}1305653646620\_{}C.csv & 681.5 \\
+	154\_{}1306935608852\_{}B.csv & 573.0 \\
+	150\_{}1306776340746\_{}C.csv & 621.0 \\
+	139\_{}1306519274653\_{}A.csv & 34.0 \\
+	143\_{}1306763822290\_{}C.csv & 10.0 \\
+	128\_{}1306344005749\_{}B.csv & 528.0 \\
+	128\_{}1306344005749\_{}D1.csv & 23.0 \\
+	153\_{}1306848820671\_{}B1.csv & 514.0 \\
+	128\_{}1306344005749\_{}D.csv & 8.0 \\
+	159\_{}1307018640315\_{}A.csv & 12.5 \\
+	115\_{}1306259437619\_{}C.csv & 628.0 \\
+	133\_{}1306759619127\_{}D.csv & 615.5 \\
+	146\_{}1306778707532\_{}D4.csv & 1489.0 \\
+	146\_{}1306778707532\_{}D2.csv & 524.5 \\
+	126\_{}1306777102824\_{}D.csv & 632.5 \\
+	129\_{}1306344506305\_{}D1.csv & 589.5 \\
+	137\_{}1306764999211\_{}D.csv & 355.0 \\
+	141\_{}1306520154450\_{}B.csv & 451.5 \\
+	106\_{}1306776721273\_{}C1.csv & 649.5 \\
+	133\_{}1306759619127\_{}B.csv & 11.5 \\
+	154\_{}1306935608852\_{}D.csv & 1738.0 \\
+	134\_{}1306428161797\_{}C.csv & 3279.5 \\
+	152\_{}1306779561195\_{}D.csv & 36.5 \\
+	154\_{}1306935608852\_{}A1.csv & 4.0 \\
+	113\_{}1306244002866\_{}D.csv & 37.5 \\
+	168\_{}1307970069434\_{}A2.csv & 45.5 \\
+	146\_{}1306778707532\_{}A.csv & 521.5 \\
+	153\_{}1306848820671\_{}B.csv & 2633.5 \\
+	103\_{}1305031931979\_{}D3.csv & 4591.5 \\
+	140\_{}1306519735121\_{}D1.csv & 28.0 \\
+	129\_{}1306344506305\_{}B1.csv & 44.5 \\
+	145\_{}1307987561278\_{}B.csv & 654.0 \\
+	106\_{}1306776721273\_{}D1.csv & 674.5 \\
+	146\_{}1306778707532\_{}D1.csv & 24607.5 \\
+	149\_{}1306776016110\_{}B.csv & 37.0 \\
+	151\_{}1306779785624\_{}A.csv & 524.5 \\
+	159\_{}1307018640315\_{}C1.csv & 24.0 \\
+	152\_{}1306779561195\_{}C1.csv & 16.5 \\
+	152\_{}1306779561195\_{}B1.csv & 840.5 \\
+	153\_{}1306848820671\_{}A.csv & 549.5 \\
+	134\_{}1306428161797\_{}D.csv & 32.0 \\
+	127\_{}1306764300147\_{}B.csv & 1859.0 \\
+	145\_{}1307987561278\_{}C.csv & 20.0 \\
+	125\_{}1306332456645\_{}B.csv & 316.5 \\
+	158\_{}1306947254705\_{}B2.csv & 579.5 \\
+	168\_{}1307970069434\_{}A.csv & 608.5 \\
+	153\_{}1306848820671\_{}D1.csv & 1631.0 \\
+	147\_{}1306523973811\_{}C.csv & 575.5 \\
+	149\_{}1306776016110\_{}C1.csv & 4476.5 \\
+	148\_{}1306768801551\_{}C1.csv & 524.5 \\
+	141\_{}1306520154450\_{}C.csv & 482.0 \\
+	155\_{}1306935902813\_{}B1.csv & 9.0 \\
+	117\_{}1306262456650\_{}B.csv & 1819.0 \\
+	140\_{}1306519735121\_{}A.csv & 567.5 \\
+	143\_{}1306763822290\_{}B.csv & 27.0 \\
+	103\_{}1305031931979\_{}D1.csv & 57.5 \\
+	127\_{}1306764300147\_{}A.csv & 735.5 \\
+	127\_{}1306764300147\_{}C1.csv & 308.5 \\
+	129\_{}1306344506305\_{}D.csv & 97.0 \\
+
+\end{tabular}
+\end{table}
+
+\section{Conclusion}
+>>>>>>> 60f8ef975d003eebe9a594bbff5edaae979895ee
 This project as widened our view of what Artificial Intelligence meant to us,
 making us more aware of the vast possibilities that can be done using the
-classifiers for example and also the neural netwrok. Before it we thought that
+classifiers for example and also the neural network. Before it we thought that
 Artificial Intelligence was just like in the movies where a machine can think
 and learn like a human being, but now we have started to get very interested in
 some areas like for example Natural Language Processing, or Machine Learning and
 we have also started to look at deep learning because of some media attention
 it is getting these days.
 
-We also agreed that this was an intersting topic because we never knew that we
+We also agreed that this was an interesting topic because we never knew that we
 could apply concept of Artificial Intelligence towards health and after this
 course we realized that there could be a great number of applications towards
 medical research and disease detection.
