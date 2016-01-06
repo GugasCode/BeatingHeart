@@ -107,11 +107,13 @@ def classify(path, clas):
     for i in f:
         frames = files.reader(path + "/" + i)
         res.append([i,frames,clas])
+        break
     return res
 
 def stdClassify(path, folders):
     """
-        Makes a list of tuples with all files classified for use in training and test
+        Makes a list of tuples with all files classified for use in training and
+        test.
     """
     l = []
     for p in folders:
@@ -156,12 +158,13 @@ if __name__ == '__main__':
     folders = files.getDir(path)
     cl = stdClassify(path, folders)
     cl = runOnClassified(cl)
-    test, train = makeSets(cl, perc=80)
-    knn = KNN(train, 1)
+    # test, train = makeSets(cl, perc=80)
+    knn = KNN(cl, 1)
     # print(test[1])
     # print(test[1][1])
-    print(test[1][1][0][0][0])
-    print(test[1][1][1][0][0])
-    classification = knn.classify([test[1][1][0][0],test[1][1][0][0]],1)
+    # print(test[1][1][0][0][0])
+    # print(test[1][1][1][0][0])
+    test_vlad_sucks = np.array([1800, 680])
+    classification = knn.classify(['fsfasdf', test_vlad_sucks, ''], 1)
     print(classification)
 

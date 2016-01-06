@@ -101,6 +101,13 @@ because we only need to create the object and padd it our training set and
 afterwards simply pass every element of our test set and it will abstract the
 programmer from worrying about the underlying work of the classificator.
 
+We have also decided to put the data into a structure that is basically composed
+of the name of the file, all of the parameters and at the end of every data
+item is the classification that the file has. We also made the decision to
+simply choose the first pair of every file, we also thought about making the
+mean of every pair of S1 and S2 because it would be more uniform, but made the
+decision to only use the first in every file.
+
 Our classifiers are implemented, we won't talk much about them because they are
 standard classifiers implemeting formulas so we will jump right to the results:
 % put the results here using a confusion matrix
@@ -130,6 +137,11 @@ good as it could be since we still don't have a perfect algorithm for pulse
 verification and we also didn't had too much attention to the optimization of
 our classifiers so it is a system that actually takes some time to process the
 data, even for just one file which is quite bad in our standards.
+
+The project itself is interesting but we must say that we could have made much
+more of an effort towards making something that could be a production grade
+application with multiple algorithms and a bigger abstraction of the input data
+to aid us un future projects.
 
 \begin{table}
 \label{table:Error results}
