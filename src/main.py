@@ -109,7 +109,7 @@ def classify(path, clas):
     for i in f:
         frames = files.reader(path + "/" + i)
         res.append([i,frames,clas])
-        if j > 10:
+        if j > 2:
             break
         j += 1
         # break#TODO: remove this
@@ -171,14 +171,13 @@ if __name__ == '__main__':
     print("train",train)
     pass
     knn = KNN(train, 1)
-    print(test[0])
     formated = formatting(test)
     result = []
     for item in formated:
         classification = knn.classify(item,5)
-        print('We got a new one!', classification)
         result.append([item[-1], classification])
-    print(result)
+    print("result ",result)
+    print(len(result))
     matrix = confusionMatrix(result)
     print(matrix)
     # os.system('speaker-test -c 1 -D plughw:0')

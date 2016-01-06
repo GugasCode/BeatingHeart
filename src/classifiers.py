@@ -36,10 +36,17 @@ def confusionMatrix(data):
     # ----------|------------------------------
     # murmurios |
     # ----------|------------------------------
-    contagem = {'normais': 0,
+    contagem0 = {'normais': 0,
             'extraSistolicos': 0,
             'murmurios':0}
-    matrix = {'normais': contagem, 'extraSistolicos': contagem, 'murmurios': contagem}
+    contagem1 = {'normais': 0,
+            'extraSistolicos': 0,
+            'murmurios':0}
+    contagem2= {'normais': 0,
+            'extraSistolicos': 0,
+            'murmurios':0}
+    matrix = {'normais': contagem0, 'extraSistolicos': contagem1,
+            'murmurios': contagem2}
     for item in data:
         a = item[0]
         b = item[1]
@@ -186,27 +193,25 @@ class KNN():
             Method that will receive the k nearest neighbors and simply return
             the class which is more present in those distances.
         """
-        maximum = {}
-        for key, value in dists:
-            if maximum.get(key) == None:
-                maximum[key] = 1
-            else:
-                maximum[key] += 1
+        count = {'normais': 0,
+                'extraSistolicos': 0,
+                'murmurios':0}
 
-        aux = 'normais'
-        for key, value in maximum.items():
-            if maximum.get(key) > maximum.get(aux):
-                print('AQUI!!! ',key, aux)
-                aux = key
-        return aux
+        for item in dists:
+            count[item[0]] += 1
+        aux = -1
+        result = 'placeholder'
+        for key, value in count.items():
+            if value > aux:
+                result = key
+                aux = value
+        return result
 
     def classify(self, test, k):
         distances = self.distance(test)
         distances.sort(key=operator.itemgetter(1))
-
-        for i in distances[:-k]:
-            print(i)
-        classification = self.decideClass(distances[:-k])
+        print("k: ",distances[-k:])
+        classification = self.decideClass(distances[-k:])
         return classification
 
 class NeuralNet():
