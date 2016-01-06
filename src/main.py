@@ -105,9 +105,13 @@ def classify(path, clas):
     """
     f = files.listDir(path)
     res = []
+    j = 0
     for i in f:
         frames = files.reader(path + "/" + i)
         res.append([i,frames,clas])
+        if j > 10:
+            break
+        j += 1
         # break#TODO: remove this
     return res
 
@@ -153,7 +157,7 @@ def runOnClassified(data):
         t1, t2 = pul.getT(aux, beats, flt.distinguish(aux), 0.01)
         t11 = pul.getT11(beats[0], flt.distinguish(aux))
         t12 = pul.getT12(beats[0], flt.distinguish(aux))
-        data[i][1] = [[t11],[t12]]
+        data[i][1] = [[t11],[t12],[t1],[t2]]
     return data
 
 if __name__ == '__main__':
@@ -170,13 +174,11 @@ if __name__ == '__main__':
     print(test[0])
     formated = formatting(test)
     result = []
-    classification = knn.classify(formated[0], 5)
-    print(classification)
-    # for item in formated:
-    #     classification = knn.classify(item,5)
-    #     print('We got a new one!', classification)
-    #     result.append([item[-1], classification])
-    # print(result)
+    for item in formated:
+        classification = knn.classify(item,5)
+        print('We got a new one!', classification)
+        result.append([item[-1], classification])
+    print(result)
     matrix = confusionMatrix(result)
     print(matrix)
-    os.system('speaker-test -c 1 -D plughw:0')
+    # os.system('speaker-test -c 1 -D plughw:0')

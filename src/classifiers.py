@@ -69,11 +69,13 @@ def formatting(data):
         # get the smallest length array of that position
         length = len(item[1][0][0])
         if len(item[1][0][0]) > len(item[1][1][0]):
-            length = len(item[1][1])
+            length = len(item[1][1][0])
         for n in range(length):
             x = int(item[1][0][0][n])
             y = int(item[1][1][0][n])
-            params = np.array([x, y])
+            z = int(item[1][2][0][n])
+            w = int(item[1][3][0][n])
+            params = np.array([x, y, z, w])
             aux = [name, params, label]
             final.append(aux)
     return final
@@ -175,6 +177,7 @@ class KNN():
             dist = 0
             for element in range(len(item[1])):
                 dist += (item[1][element] - test[1][element])**2
+            dist = math.sqrt(dist)
             distances.append((item[2], dist))
         return distances
 
@@ -237,64 +240,3 @@ class NeuralNet():
         l1_error = np.array(range(100))
 
         l1_delta = l1_error * sigmoid(l1, True)
-
-###myxor###
-def deriv(x):
-    return x * (1 - x)
-
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-def main():
-    bits = np.array([
-        [0,0],
-        [0,1],
-        [1,0],
-        [1,1]
-        ])
-    output = np.array([
-        [0],
-        [1],
-        [1],
-        [0]
-        ])
-    np.random.seed(1)
-    synapse0 = 2 * np.random.random((2,3)) - 1
-    synapse1 = 2 * np.random.random((3,6)) - 1
-    synapse2 = 2 * np.random.random((6,12)) - 1
-    synapse3 = 2 * np.random.random((12,1)) - 1
-
-    i = 0
-    while True:
-        layer0 = bits
-        layer1 = sigmoid(np.dot(layer0, synapse0))
-        layer2 = sigmoid(np.dot(layer1, synapse1))
-        layer3 = sigmoid(np.dot(layer2, synapse2))
-        layer4 = sigmoid(np.dot(layer3, synapse3))
-
-        l4_error = output - layer4
-        l4_delta = l4_error * deriv(layer4)
-
-        if i % 10000 == 0:
-            print("Error:" + str(np.mean(np.abs(l4_error))))
-        if np.mean(np.abs(l4_error)) < 0.001:
-            break
-
-        l3_error = l4_delta.dot(synapse3.T)
-        l3_delta = l3_error * deriv(layer3)
-
-        l2_error = l3_delta.dot(synapse2.T)
-        l2_delta = l2_error * deriv(layer2)
-
-        l1_error = l2_delta.dot(synapse1.T)
-        l1_delta = l1_error * deriv(layer1)
-
-        synapse3 += layer3.T.dot(l4_delta)
-        synapse2 += layer2.T.dot(l3_delta)
-        synapse1 += layer1.T.dot(l2_delta)
-        synapse0 += layer0.T.dot(l1_delta)
-
-        i += 1
-    print("output after training:")
-    print(layer4)
-###myxor###
