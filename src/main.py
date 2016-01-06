@@ -170,10 +170,13 @@ if __name__ == '__main__':
     print(test[0])
     formated = formatting(test)
     result = []
-    for item in formated:
-        classification = knn.classify(item,5)
-        result.append([item[-1], classification])
-    print(result)
+    classification = knn.classify(formated[0], 5)
+    print(classification)
+    # for item in formated:
+    #     classification = knn.classify(item,5)
+    #     print('We got a new one!', classification)
+    #     result.append([item[-1], classification])
+    # print(result)
     matrix = confusionMatrix(result)
     print(matrix)
     os.system('speaker-test -c 1 -D plughw:0')

@@ -193,6 +193,7 @@ class KNN():
         aux = 'normais'
         for key, value in maximum.items():
             if maximum.get(key) > maximum.get(aux):
+                print('AQUI!!! ',key, aux)
                 aux = key
         return aux
 
@@ -200,6 +201,8 @@ class KNN():
         distances = self.distance(test)
         distances.sort(key=operator.itemgetter(1))
 
+        for i in distances[:-k]:
+            print(i)
         classification = self.decideClass(distances[:-k])
         return classification
 
