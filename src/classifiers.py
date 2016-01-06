@@ -69,7 +69,7 @@ def formatting(data):
         # get the smallest length array of that position
         length = len(item[1][0][0])
         if len(item[1][0][0]) > len(item[1][1][0]):
-            length = len(item[1][1])
+            length = len(item[1][1][0])
         for n in range(length):
             x = int(item[1][0][0][n])
             y = int(item[1][1][0][n])

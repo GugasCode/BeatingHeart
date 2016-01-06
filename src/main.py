@@ -172,6 +172,8 @@ if __name__ == '__main__':
     result = []
     classification = knn.classify(formated[0], 5)
     print(classification)
+    b = Bayes(formated[0])
+    result = b.bayes(formated[0][0])
     # for item in formated:
     #     classification = knn.classify(item,5)
     #     print('We got a new one!', classification)
