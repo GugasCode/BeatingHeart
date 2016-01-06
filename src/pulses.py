@@ -45,3 +45,35 @@ def getT12(data, startS1):
         aux = data[i+1] - data[i]
         res = np.append(res, [aux])
     return res
+
+def getT(data, beats, startS1, cut):
+    print(beats[1])
+    print(beats[1].max())
+    cut = beats[1].max() / 4
+    print("cut ",cut)
+    t1 = []
+    t2 = []
+    pos = 1
+    for jump in beats[0]:
+        print("jump",jump)
+        start = jump
+        while data[1][start] > cut:
+            start -= 1
+        print(start-1)
+        end = jump
+        while data[1][end] > cut:
+            end += 1
+        print(end-1)
+        print("pos",pos)
+        if startS1 == True and pos % 2 != 0:
+            t2.append(end - start)
+        elif startS1 == True and pos % 2 == 0:
+            t1.append(end - start)
+        elif startS1 == False and pos % 2 != 0:
+            t1.append(end - start)
+        elif startS1 == False and pos % 2 == 0:
+            t2.append(end - start)
+        pos += 1
+    print("t1",t1)
+    print("t2",t2)
+    return t1, t2
