@@ -23,6 +23,38 @@ def parseData(data):
             aux[2] = c
     return aux
 
+def confusionMatrix(data):
+    """
+        Function that will make the confusion matrix for the classification.
+    """
+    # Structure of the confusion matrix
+              # |  normais | extra | murmurios|
+    # -----------------------------------------
+    # normais   |
+    # ----------|------------------------------
+    # extra     |
+    # ----------|------------------------------
+    # murmurios |
+    # ----------|------------------------------
+    contagem = {'normais': 0,
+            'extra': 0,
+            'murmurios':0}
+    matrix = {'normais': contagem, 'extra': contagem, 'murmurios': contagem}
+    for item in data:
+        a = item[0]
+        b = item[1]
+        # this will actually work but item[0] needs to be the expected
+        # and subsequently the item[1] is the result after classification
+        matrix[a][b] += 1
+
+    return matrix # matrix with all of the information.
+
+def printMatrix(matrix):
+    """
+        Function that will print all of the information inside the matrix.
+    """
+    pass
+
 def formatting(data):
     """
         Function that will prepare the data for our classifiers to work with.
@@ -57,9 +89,8 @@ class Bayes():
         Class that will represent the Naive Bayes classifier.
     """
     def __init__(self, data):
-        self.data = data
+        self.data = formatting(data)
         self.data_size = len(data)
-        pass
 
     def seperate(self):
         """
