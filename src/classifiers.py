@@ -2,6 +2,7 @@
 Classifiers module that will have all of the classifiers being used in this
 project, for now there is the kNN and the Naive Bayes classifiers.
 """
+
 # Using Python 3
 import numpy as np
 import math
@@ -12,7 +13,7 @@ import operator
 # clearly we need a function that is going to make all of the data turn into
 # arrays os T param arrays
 def parseData(data):
-    # it only send the first one there
+    # it only sends the first one there
     aux = np.array(['',[],''])
     for item in data:
         for a,b,c in item:
@@ -21,6 +22,29 @@ def parseData(data):
                 aux[1] = np.array([i,j])
             aux[2] = c
     return aux
+
+def formatting(data):
+    """
+        Function that will prepare the data for our classifiers to work with.
+        Returning the final array as a numpy array of 3 possitions, the name of
+        the file and also the params in a numpy array as well and finally the
+        classification. This way we have more then just one sample per file.
+    """
+    final = []
+    for item in data:
+        name = item[0]
+        label = item[2]
+        # get the smallest length array of that position
+        length = len(item[1][0][0])
+        if len(item[1][0][0]) > len(item[1][1][0]):
+            length = len(item[1][1])
+        for n in range(length):
+            x = int(item[1][0][0][n])
+            y = int(item[1][1][0][n])
+            params = np.array([x, y])
+            aux = [name, params, label]
+            final.append(aux)
+    return final
 
 class Bayes():
     """
@@ -106,9 +130,8 @@ class KNN():
         """
             Initialization method for the kNN algorithm
         """
-        self.data = data
+        self.data = formatting(data)
         self.k = k
-        print(data)
 
     def distance(self, test):
         """
@@ -119,8 +142,8 @@ class KNN():
         distances = []
         for item in self.data: # we need the data to be pairs of T params
             dist = 0
-            for element in item[1]:
-                dist += (item[element] - test[element])**2
+            for element in range(len(item[1])):
+                dist += (item[1][element] - test[1][element])**2
             distances.append((item[2], dist))
         return distances
 
@@ -131,7 +154,7 @@ class KNN():
         """
         maximum = {}
         for key, value in dists:
-            if maximum[key] == None:
+            if maximum.get(key) == None:
                 maximum[key] = 1
             else:
                 maximum[key] += 1
@@ -142,7 +165,7 @@ class KNN():
         distances = self.distance(test)
         distances.sort(key=operator.itemgetter(1))
 
-        classification = decideClass(distances[:-k])
+        classification = self.decideClass(distances[:-k])
         return classification
 
 class NeuralNet():

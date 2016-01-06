@@ -6,7 +6,7 @@ import filters as flt
 import utils.waves as wave
 import utils.files as files
 import utils.charts as chart
-from classifiers import Bayes, KNN
+from classifiers import Bayes, KNN, formatting
 from random import randint
 
 def main():
@@ -108,17 +108,18 @@ def classify(path, clas):
     for i in f:
         frames = files.reader(path + "/" + i)
         res.append([i,frames,clas])
-        break#TODO: remove this
+        # break#TODO: remove this
     return res
 
 def stdClassify(path, folders):
     """
-        Makes a list of tuples with all files classified for use in training and test
+        Makes a list of tuples with all files classified for use in training and
+        test.
     """
     l = []
     for p in folders:
         l.extend(classify(path+p, p))
-        break#TODO: remove this
+        # break#TODO: remove this
     return l
 
 def makeSets(data, perc=80):
@@ -147,29 +148,27 @@ def stdRunClassify(path):
 
 def runOnClassified(data):
     for i in range(len(data)):
-        # aux = stdShannonRun(data[i][1], graph=False, reader=False)
-        aux = stdShannonRun(data[i][1], graph=True, reader=False)
+        aux = stdShannonRun(data[i][1], graph=False, reader=False)
         beats = pul.findBeats(aux, 4, 6)
         t1, t2 = pul.getT(aux, beats, flt.distinguish(aux), 0.01)
         t11 = pul.getT11(beats[0], flt.distinguish(aux))
         t12 = pul.getT12(beats[0], flt.distinguish(aux))
-        # diff = max(len(t11),len(t12)) - min(len(t11),len(t12))
         data[i][1] = [[t11],[t12]]
-        print(data[i][0])
     return data
 
 if __name__ == '__main__':
+    import os
     path = sys.argv[1]
     folders = files.getDir(path)
     cl = stdClassify(path, folders)
     cl = runOnClassified(cl)
     test, train = makeSets(cl, perc=80)
-    # knn = KNN(train, 1)
-    # print(test[1])
-    # print(test[1][1])
-    # print(test[1][1][0][0][0])
-    # print(test[1][1][1][0][0])
-    # print(train[1])
-    # classification = knn.classify([test[1][1][0][0],test[1][1][0][0]],1)
-    # print(classification)
-
+    knn = KNN(train, 1)
+    print(test[0])
+    formated = formatting(test)
+    result = []
+    for item in formated:
+        classification = knn.classify(item,5)
+        result.append([item[-1], classification])
+    os.system('speaker-test -c 1 -D plughw:0')
+    print(result)
