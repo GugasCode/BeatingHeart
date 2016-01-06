@@ -173,23 +173,11 @@ if __name__ == '__main__':
     knn = KNN(train, 1)
     formated = formatting(test)
     result = []
-<<<<<<< HEAD
     for item in formated:
         classification = knn.classify(item,5)
         result.append([item[-1], classification])
     print("result ",result)
     print(len(result))
-=======
-    classification = knn.classify(formated[0], 5)
-    print(classification)
-    b = Bayes(formated[0])
-    result = b.bayes(formated[0][0])
-    # for item in formated:
-    #     classification = knn.classify(item,5)
-    #     print('We got a new one!', classification)
-    #     result.append([item[-1], classification])
-    # print(result)
->>>>>>> 2af7a4126cb72296f70942f7708435299db9165f
     matrix = confusionMatrix(result)
     print(matrix)
     # os.system('speaker-test -c 1 -D plughw:0')
