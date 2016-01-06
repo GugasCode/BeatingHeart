@@ -6,7 +6,7 @@ import filters as flt
 import utils.waves as wave
 import utils.files as files
 import utils.charts as chart
-from classifiers import Bayes, KNN, formatting
+from classifiers import Bayes, KNN, formatting, confusionMatrix
 from random import randint
 
 def main():
@@ -163,6 +163,9 @@ if __name__ == '__main__':
     cl = stdClassify(path, folders)
     cl = runOnClassified(cl)
     test, train = makeSets(cl, perc=80)
+    print("test",test)
+    print("train",train)
+    pass
     knn = KNN(train, 1)
     print(test[0])
     formated = formatting(test)
@@ -170,5 +173,7 @@ if __name__ == '__main__':
     for item in formated:
         classification = knn.classify(item,5)
         result.append([item[-1], classification])
-    os.system('speaker-test -c 1 -D plughw:0')
     print(result)
+    matrix = confusionMatrix(result)
+    print(matrix)
+    os.system('speaker-test -c 1 -D plughw:0')

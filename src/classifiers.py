@@ -37,9 +37,9 @@ def confusionMatrix(data):
     # murmurios |
     # ----------|------------------------------
     contagem = {'normais': 0,
-            'extra': 0,
+            'extraSistolicos': 0,
             'murmurios':0}
-    matrix = {'normais': contagem, 'extra': contagem, 'murmurios': contagem}
+    matrix = {'normais': contagem, 'extraSistolicos': contagem, 'murmurios': contagem}
     for item in data:
         a = item[0]
         b = item[1]
@@ -190,7 +190,11 @@ class KNN():
             else:
                 maximum[key] += 1
 
-        return max(maximum.items(), key=operator.itemgetter(1))[0]
+        aux = 'normais'
+        for key, value in maximum.items():
+            if maximum.get(key) > maximum.get(aux):
+                aux = key
+        return aux
 
     def classify(self, test, k):
         distances = self.distance(test)
